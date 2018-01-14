@@ -42,6 +42,7 @@ app.get("/scrape", function(req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     // console.log(response.data);
     var $ = cheerio.load(response.data);
+    var results = new Array();
     $(".story-body").each(function(i, element) {
       var result = {};
       result.title = $(this)
@@ -50,20 +51,28 @@ app.get("/scrape", function(req, res) {
       result.summary = $(this)
         .children(".summary")
         .text();
+      // Create a new Article using the `result` object built from scraping
+      if (result.title.length > 5){
 
       console.log(result);
-      // Create a new Article using the `result` object built from scraping
+      results.push(result);
+
+
       db.Article
         .create(result)
         .then(function(dbArticle) {
           // If we were able to successfully scrape and save an Article, send a message to the client
-          res.send("Scrape Complete");
+          // res.send(dbArticle);
+          //res.send("Scrape Complete");
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
           res.json(err);
         });
+      }
     });
+    res.json(results);
+
   });
 });
 

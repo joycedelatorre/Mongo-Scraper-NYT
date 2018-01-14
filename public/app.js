@@ -1,15 +1,23 @@
 $(document).ready(function(){
   console.log("ready!");
   $("#scrape").on("click",function(){
+    console.log("hello");
     $.ajax({
       method:"GET",
       url:"/scrape"
     }).done(function(data){
       console.log(data);
-      $("#nyt-articles").append("<h2>" + data.title + "</h2>");
+      for(var i=0; i < data.length; i++){
+        $("#nyt-articles").append(
+        "<tbody><tr><td>" +data[i].title+"</td>"+
+                "<td>" + data[i].summary+
+        "</td></tr></tbody>"
+        );
+      }
     });
   });
 });
+
 
 
 
