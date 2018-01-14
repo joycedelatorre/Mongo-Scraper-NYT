@@ -1,0 +1,23 @@
+{
+  "name": "mongo-scraper-nyt",
+  "version": "1.0.0",
+  "description": "An app that scrapes NYT and provides users the functionality to view news, save and article, leave comments and delete the comments and articles",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joycedelatorre/Mongo-Scraper-NYT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joycedelatorre/Mongo-Scraper-NYT/issues"
+  },
+  "homepage": "https://github.com/joycedelatorre/Mongo-Scraper-NYT#readme",
+  "dependencies": {
+    "node": "^9.4.0"
+  }
+}

@@ -1,0 +1,39 @@
+#menu-bar{
+  background-color:#008080;
+}
+#ms{
+  color:white;
+  padding:10px;
+}
+#home{
+  padding: 20px;
+  color:white;
+}
+
+#savedArticle{
+  padding:20px;
+  color:white;
+}
+
+#btn-holder{
+  padding:10px;
+}
+
+#imageHolder{
+  background-image: url("../images/scrapeArticles.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:100%;
+  padding:200px;
+}
+
+#nyt-title{
+  text-align: center; 
+  color:white; 
+  font-family: 'Times New Roman';
+}
+#page-name{
+  text-align:center; 
+  color:white;
+  font-family: 'Times New Roman';
+}
