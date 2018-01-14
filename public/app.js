@@ -7,11 +7,12 @@ $(document).ready(function(){
       url:"/scrape"
     }).done(function(data){
       console.log(data);
+      $("#headings").html("<h1>Scraped Articles</h1>");
       for(var i=0; i < data.length; i++){
         $("#nyt-articles").append(
         "<tbody><tr><td>" +data[i].title+"</td>"+
-                "<td>" + data[i].summary+
-        "</td></tr></tbody>"
+                "<td>" + data[i].summary+"</td>"+
+                "<td><button class='btn btn-success save'> Save </button></td><td><button class='btn btn-danger delete'> Delete </button></td></tr></tbody>"
         );
       }
     });
