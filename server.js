@@ -53,12 +53,15 @@ app.get("/scrape", function(req, res) {
       result.title = $(this)
         .children(".headline")
         .text().replace(/ +(?= )/g,'').replace(/\n/g,'');
-      console.log(result);
+      result.summary = $(this)
+        .children(".summary")
+        .text();
       
       // result.link = $(this)
-      //   .children("a")
-        // .attr(".story-link");
+      //   .children(".story-link")
+      //   .attr("href");
 
+      console.log(result);
       // Create a new Article using the `result` object built from scraping
     //   db.Article
     //     .create(result)
