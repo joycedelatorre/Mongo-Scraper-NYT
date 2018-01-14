@@ -40,34 +40,36 @@ app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
   axios.get("http://www.nytimes.com/section/world?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=World&WT.nav=page").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
-    console.log(response.data);
+    // console.log(response.data);
     var $ = cheerio.load(response.data);
     // Now, we grab every h2 within an article tag, and do the following:
-    $("ol").each(function(i, element) {
+    $(".story-body").each(function(i, element) {
       // Save an empty result object
-      console.log(element);
+      // console.log(element);
       var result = {};
       // console.log(result);
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children("li").attr(".headline")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
+        .children(".headline")
+        .text().replace(/ +(?= )/g,'').replace(/\n/g,'');
+      console.log(result);
+      
+      // result.link = $(this)
+      //   .children("a")
+        // .attr(".story-link");
 
       // Create a new Article using the `result` object built from scraping
-      db.Article
-        .create(result)
-        .then(function(dbArticle) {
-          // If we were able to successfully scrape and save an Article, send a message to the client
-          res.send("Scrape Complete");
-        })
-        .catch(function(err) {
-          // If an error occurred, send it to the client
-          res.json(err);
-        });
+    //   db.Article
+    //     .create(result)
+    //     .then(function(dbArticle) {
+    //       // If we were able to successfully scrape and save an Article, send a message to the client
+    //       res.send("Scrape Complete");
+    //     })
+    //     .catch(function(err) {
+    //       // If an error occurred, send it to the client
+    //       res.json(err);
+    //     });
     });
   });
 });
