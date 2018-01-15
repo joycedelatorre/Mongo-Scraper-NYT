@@ -3,9 +3,6 @@ function saveEvent(){
     var currentRow=$(this).closest("tr");
     var col1 = currentRow.find("td:eq(0)").text();
     var col2 = currentRow.find("td:eq(1)").text();
-    // data = col1+ "\n" + col2;
-
-    // alert(data);
 
     $.ajax({
       method:"POST",
@@ -33,6 +30,11 @@ function deleteArticle(){
   });
 }
 
+function displayArticleComments(){
+  $(".articleNotes").on("click", function(){
+
+  });
+}
 
 $(document).ready(function(){
   //console.log("ready!");
@@ -80,10 +82,11 @@ $(document).ready(function(){
         $("#nyt-articles").append(
         "<tbody><tr id ="+ data[i]._id+" ><td>" +data[i].title+"</td>"+
                 "<td>" + data[i].summary+"</td>"+
-                "<td><button class='btn btn-success article-Notes'>Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
+                "<td><button class='btn btn-success articleComments' data-toggle='modal' data-target='#comment'>Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
         );
       }//end of for loop
       deleteArticle();
+      displayArticleComments();
     });//end of $.ajax
 
   });
