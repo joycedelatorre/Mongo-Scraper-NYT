@@ -72,7 +72,6 @@ app.get("/scrape", function(req, res) {
       }
     });
     res.json(results);
-
   });
 });
 

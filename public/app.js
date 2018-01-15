@@ -7,6 +7,7 @@ $(document).ready(function(){
       url:"/scrape"
     }).done(function(data){
       console.log(data);
+      // $("#headings").contents().remove();
       $("#headings").html("<h1>Scraped Articles</h1>");
       for(var i=0; i < data.length; i++){
         $("#nyt-articles").append(
@@ -16,6 +17,12 @@ $(document).ready(function(){
         );
       }
     });
+  });
+
+  $("#home").on("click", function(event){
+    event.preventDefault();
+    window.location ="/";
+
   });
 });
 
