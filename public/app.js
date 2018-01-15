@@ -30,9 +30,17 @@ function deleteArticle(){
   });
 }
 
-function displayArticleComments(){
-  $(".articleNotes").on("click", function(){
-
+function createComment(){
+  $(".saveComments").on("click", function(){
+    var newComment = $("#myTextArea").val();
+    console.log(newComment);
+    $.ajax({
+      method:"POST",
+      url:"/api/new_comment",
+      data: { body:newComment }
+    }).done(function(data){
+      
+    }); // end of $.ajax
   });
 }
 
@@ -85,13 +93,16 @@ $(document).ready(function(){
                 "<td><button class='btn btn-success articleComments' data-toggle='modal' data-target='#comment'>Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
         );
       }//end of for loop
-      deleteArticle();
-      displayArticleComments();
+      // deleteArticle();
+      // displayArticleComments();
+      createComment();
     });//end of $.ajax
 
   });
 
 }); // END OF DOCUMENT READY
+
+//create a comment first the display it
 
 
 

@@ -101,6 +101,17 @@ app.delete("/api/article/:id", function(req, res){
     })
 });
 
+app.post("/api/new_comment", function(req, res){
+  db.Comment
+  .create(req.body)
+  .then(function(dbComment){
+    console.log("comment saved");
+  })
+  .catch(function(err){
+    res.json(err);
+  });
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
 // app.get("/articles/:id", function(req, res) {
 //   // TODO
