@@ -17,7 +17,7 @@
               <div class="col-md-2" id="home">Home</div>
               <div class="col-md-3" id="savedArticle">Saved Articles</div>
               <div class="col-md-3" id="btn-holder">
-                <button type="button" class="btn btn-danger" id="scrape">SCRAPE</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" id="scrape">SCRAPE</button>
               </div>
             </div>
           </div>
@@ -52,7 +52,30 @@
       </tbody>
     </table>
       </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Articles Scraped</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            You scraped 19 articles!
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+    </div> <!--end of container-->
     <script src="app.js" type="text/javascript"></script>
   </body>
 </html>

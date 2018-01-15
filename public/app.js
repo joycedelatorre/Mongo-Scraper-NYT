@@ -13,18 +13,20 @@ $(document).ready(function(){
         $("#nyt-articles").append(
         "<tbody><tr><td>" +data[i].title+"</td>"+
                 "<td>" + data[i].summary+"</td>"+
-                "<td><button class='btn btn-success save'> Save </button></td><td><button class='btn btn-danger delete'> Delete </button></td></tr></tbody>"
+                "<td><button class='btn btn-success save'> Save Article </button></td></tr></tbody>"
         );
       }
+      addDeleteEvent();
     });
   });
 
   $("#home").on("click", function(event){
     event.preventDefault();
     window.location ="/";
-
   });
 });
+
+
 
 
 
