@@ -19,9 +19,9 @@ function saveEvent(){
 
 
 $(document).ready(function(){
-  console.log("ready!");
+  //console.log("ready!");
   $("#scrape").on("click",function(){
-    console.log("hello");
+    //console.log("hello");
     $.ajax({
       method:"GET",
       url:"/scrape"
@@ -44,7 +44,34 @@ $(document).ready(function(){
     event.preventDefault();
     window.location ="/";
   });
-});
+
+  $("#savedArticles").on("click", function(event){
+    event.preventDefault();
+    $.ajax({
+      method:"GET",
+      url:"/articles"
+    }).done(function(data){
+      console.log(data);
+      $("#page-title1").html("S");
+      $("#page-title2").html("AVED");
+      $("#page-title3").html("A");
+      $("#page-title4").html("RTICLES");
+      $("#headings").html("<h1>Saved Articles</h1>");
+      $("tbody").empty();
+
+      for(var i=0; i < data.length; i++){
+        $("#nyt-articles").append(
+        "<tbody><tr><td>" +data[i].title+"</td>"+
+                "<td>" + data[i].summary+"</td>"+
+                "<td><button class='btn btn-success article-Notes'>Article Notes</button></td><td><button class='btn btn-danger delete-Article'>Delete Article</button></td></tr></tbody>"
+        );
+      }//end of for loop
+
+    });//end of $.ajax
+
+  });
+
+}); // END OF DOCUMENT READY
 
 
 

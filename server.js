@@ -69,7 +69,7 @@ app.post("/api/save", function(req, res){
       // If we were able to successfully scrape and save an Article, send a message to the client
       // res.send(dbArticle);
       //res.send("Scrape Complete");
-      console.log("Article saved");
+      console.log("Article saved"); //CHECK SERVER.JS
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -79,18 +79,18 @@ app.post("/api/save", function(req, res){
 
 
 // Route for getting all Articles from the db
-// app.get("/articles", function(req, res) {
-//   // TODO: Finish the route so it grabs all of the articles
-//   db.Article
-//     .find({})
-//     .then(function(dbArticle){
-//       res.json(dbArticle)
-//     })
-//     .catch(function(err){
-//       res.json(err);
-//     });
+app.get("/articles", function(req, res) {
+  // TODO: Finish the route so it grabs all of the articles
+  db.Article
+    .find({})
+    .then(function(dbArticle){
+      res.json(dbArticle)
+    })
+    .catch(function(err){
+      res.json(err);
+    });
 
-// });
+});
 
 // Route for grabbing a specific Article by id, populate it with it's note
 // app.get("/articles/:id", function(req, res) {
