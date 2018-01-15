@@ -53,28 +53,29 @@ app.get("/scrape", function(req, res) {
         .text();
       // Create a new Article using the `result` object built from scraping
       if (result.title.length > 5){
-
-      console.log(result);
-      results.push(result);
-
-
-      // db.Article
-      //   .create(result)
-      //   .then(function(dbArticle) {
-      //     // If we were able to successfully scrape and save an Article, send a message to the client
-      //     // res.send(dbArticle);
-      //     //res.send("Scrape Complete");
-      //   })
-      //   .catch(function(err) {
-      //     // If an error occurred, send it to the client
-      //     res.json(err);
-      //   });
+        console.log(result);
+        results.push(result);
       }
     });
     res.json(results);
   });
 });
 
+app.post("/api/save", function(req, res){
+  // console.log(req.body);
+  db.Article
+    .create(req.body)
+    .then(function(dbArticle) {
+      // If we were able to successfully scrape and save an Article, send a message to the client
+      // res.send(dbArticle);
+      //res.send("Scrape Complete");
+      console.log("Article saved");
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
 
 
 // Route for getting all Articles from the db

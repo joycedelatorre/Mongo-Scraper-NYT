@@ -1,3 +1,23 @@
+function saveEvent(){
+  $(".table-striped").on("click",".save", function(){
+    var currentRow=$(this).closest("tr");
+    var col1 = currentRow.find("td:eq(0)").text();
+    var col2 = currentRow.find("td:eq(1)").text();
+    // data = col1+ "\n" + col2;
+
+    // alert(data);
+
+    $.ajax({
+      method:"POST",
+      url:"/api/save",
+      data: { title:col1, summary:col2 }
+    }).done(function(data){
+
+    }); // end of $.ajax
+  });
+}
+
+
 $(document).ready(function(){
   console.log("ready!");
   $("#scrape").on("click",function(){
@@ -16,7 +36,7 @@ $(document).ready(function(){
                 "<td><button class='btn btn-success save'> Save Article </button></td></tr></tbody>"
         );
       }
-      addDeleteEvent();
+      saveEvent();
     });
   });
 
