@@ -100,14 +100,15 @@ $(document).ready(function(){
 
   });
 
+// code below is to pass the article id to the comment-modal so that eventually I can create a comment and link it to the correct article.
   $('#comment').on('show.bs.modal', function(e) {
-    console.log(e.relatedTarget.id["selector"]);
-
     //get data-id attribute of the clicked element
     var articleId = $(e.relatedTarget).data('id');
     console.log(articleId);
     //populate the textbox
-    $(e.currentTarget).find('input[name="bookId"]').val(articleId);
+    var mid = $("#comment").attr("data-article-id",articleId);
+    // var modalId = $(e.currentTarget).attr("#data-article-id",articleId);
+    console.log(mid);
   });
 }); // END OF DOCUMENT READY
 
