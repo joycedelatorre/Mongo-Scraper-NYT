@@ -92,6 +92,15 @@ app.get("/articles", function(req, res) {
 
 });
 
+
+app.delete("/api/article/:id", function(req, res){
+  db.Article
+    .remove({"_id":req.params.id})
+    .then(function(dbArticle){
+      res.json(dbArticle)
+    })
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
 // app.get("/articles/:id", function(req, res) {
 //   // TODO

@@ -17,11 +17,28 @@ function saveEvent(){
   });
 }
 
+function deleteArticle(){
+  $(".table-striped").on("click", ".delete", function() {
+      // console.log("test");
+      console.log($(this).parent("td"));
+      var rowId = $(this).parent("td").parent("tr").attr('id');
+      console.log(rowId);
+      $(this).closest("tr").remove();
+      $.ajax({
+        method:"DELETE",
+        url:"/api/article/" + rowId
+      }).done(function(data){
+        // window.location="/articles";
+      });
+  });
+}
+
 
 $(document).ready(function(){
   //console.log("ready!");
   $("#scrape").on("click",function(){
     //console.log("hello");
+    $("tbody").empty();
     $.ajax({
       method:"GET",
       url:"/scrape"
@@ -61,12 +78,12 @@ $(document).ready(function(){
 
       for(var i=0; i < data.length; i++){
         $("#nyt-articles").append(
-        "<tbody><tr><td>" +data[i].title+"</td>"+
+        "<tbody><tr id ="+ data[i]._id+" ><td>" +data[i].title+"</td>"+
                 "<td>" + data[i].summary+"</td>"+
-                "<td><button class='btn btn-success article-Notes'>Article Notes</button></td><td><button class='btn btn-danger delete-Article'>Delete Article</button></td></tr></tbody>"
+                "<td><button class='btn btn-success article-Notes'>Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
         );
       }//end of for loop
-
+      deleteArticle();
     });//end of $.ajax
 
   });
