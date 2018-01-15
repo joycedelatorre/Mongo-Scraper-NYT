@@ -90,7 +90,7 @@ $(document).ready(function(){
         $("#nyt-articles").append(
         "<tbody><tr id ="+ data[i]._id+" ><td>" +data[i].title+"</td>"+
                 "<td>" + data[i].summary+"</td>"+
-                "<td><button class='btn btn-success articleComments' data-toggle='modal' data-target='#comment'>Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
+                "<td><button class='btn btn-success articleComments' data-toggle='modal' data-target='#comment' data-id="+data[i]._id+" >Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
         );
       }//end of for loop
       // deleteArticle();
@@ -100,6 +100,15 @@ $(document).ready(function(){
 
   });
 
+  $('#comment').on('show.bs.modal', function(e) {
+    console.log(e.relatedTarget.id["selector"]);
+
+    //get data-id attribute of the clicked element
+    var articleId = $(e.relatedTarget).data('id');
+    console.log(articleId);
+    //populate the textbox
+    $(e.currentTarget).find('input[name="bookId"]').val(articleId);
+  });
 }); // END OF DOCUMENT READY
 
 //create a comment first the display it
