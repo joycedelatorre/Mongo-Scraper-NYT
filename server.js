@@ -105,6 +105,7 @@ app.post("/api/new_comment", function(req, res){
   db.Comment
   .create(req.body)
   .then(function(dbComment){
+    res.json(dbComment)
     console.log("comment saved");
   })
   .catch(function(err){

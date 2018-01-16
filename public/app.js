@@ -93,7 +93,7 @@ $(document).ready(function(){
                 "<td><button class='btn btn-success articleComments' data-toggle='modal' data-target='#comment' data-id="+data[i]._id+" >Article Notes</button></td><td><button class='btn btn-danger delete'>Delete Article</button></td></tr></tbody>"
         );
       }//end of for loop
-      // deleteArticle();
+      deleteArticle();
       // displayArticleComments();
       createComment();
     });//end of $.ajax
@@ -109,6 +109,17 @@ $(document).ready(function(){
     var mid = $("#comment").attr("data-article-id",articleId);
     // var modalId = $(e.currentTarget).attr("#data-article-id",articleId);
     console.log(mid);
+  });
+
+  $("#saveComments").on("click", function(event){
+    event.preventDefault
+    $.ajax({
+      method:"GET",
+      url:"/api/new_comment"
+    }).done(function(data){
+      $(".comment_list").html(data);
+      console.log(data);
+    })
   });
 }); // END OF DOCUMENT READY
 
