@@ -31,6 +31,22 @@ function deleteArticle(){
   });
 }
 
+function deleteNotes(){
+  $(".deleteComment").on("click", function() {
+      // console.log("test");
+      console.log($(this).parent("td"));
+      var rowId = $(this).parent("td").parent("tr").attr('id');
+      console.log(rowId);
+      $(this).closest("tr").remove();
+      $.ajax({
+        method:"DELETE",
+        url:"/comment/" + rowId
+      }).done(function(data){
+        // window.location="/articles";
+      });
+  });
+}
+
 $(document).ready(function(){
   //console.log("ready!");
   $("#scrape").on("click",function(){
@@ -100,7 +116,14 @@ $(document).ready(function(){
       method:"GET",
       url:"/articles/"+articleId,
     }).done(function(data){
-      // $(".comment_list").append()
+      console.log(data);
+      for(var i=0; i<data.comment.length; i++){
+        console.log(data.comment.length);
+        $(".comment_list").append(
+          "<tbody><tr id="+data.comment[i]._id+"><td>&bull;  "+data.comment[i].body+"  <button class='btn btn-danger deleteComment'>X</button>"
+        );
+      }
+      deleteNotes();
     })
 
     $(".saveComments").on("click", function(event){

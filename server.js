@@ -120,7 +120,7 @@ app.get("/articles/:id", function(req, res) {
 
 });
 
-//creating a comment 
+//----------------- creating a comment 
 app.post("/api/new_comment/:id", function(req, res) {
   // TODO
   // ====
@@ -143,6 +143,15 @@ app.post("/api/new_comment/:id", function(req, res) {
     .catch(function(err){
       res.json(err);
     });
+});
+
+//------------- delete a note
+app.delete("/comment/:id", function(req, res){
+  db.Comment
+  .remove({"_id":req.params.id})
+  .then(function(dbArticle){
+    res.json(dbArticle)
+  })
 });
 
 
