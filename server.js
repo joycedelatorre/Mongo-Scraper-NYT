@@ -35,6 +35,11 @@ mongoose.connect(databaseUri,{
 	useMongoClient:true
 });
 
+var test = mongoose.connection;
+test.on('error',function(err){
+  console.log('Mongoose Error:', err);
+})
+
 // var databaseUri ='mongodb://localhost/NYT';
 // mongoose.Promise = Promise;
 // // //=========================================================== #3 mongoDBmLab
