@@ -101,58 +101,53 @@ app.delete("/api/article/:id", function(req, res){
     })
 });
 
-app.post("/api/new_comment", function(req, res){
-  db.Comment
-  .create(req.body)
-  .then(function(dbComment){
-    res.json(dbComment)
-    console.log("comment saved");
-  })
-  .catch(function(err){
-    res.json(err);
-  });
+
+app.get("/articles/:id", function(req, res) {
+  // TODO
+  // ====
+  // Finish the route so it finds one article using the req.params.id,
+  // and run the populate method with "note",
+  // then responds with the article with the note included
+  db.Article
+    .findOne({"_id":req.params.id})
+    .populate("comment")
+    .then(function(dbArticle){
+      res.json(dbArticle)
+    })
+    .catch(function(err){
+      res.json(err);
+    });
+
 });
 
+//creating a comment 
+app.post("/api/new_comment/:id", function(req, res) {
+  // TODO
+  // ====
+  // save the new note that gets posted to the Notes collection
+  // then find an article from the req.params.id
+  // and update it's "note" property with the _id of the new note
+    db.Comment
+    .create(req.body)
+    .then(function(dbComment){
+      //res.json(dbArticle)
+      return db.Article.findOneAndUpdate(
+        {_id:req.params.id},
+        {comment:dbComment._id},
+        {new:true} //---------------- returns the new updated version of the table
+        );
+    })
+    .then(function(dbArticle){
+      res.json(dbArticle);
+    })
+    .catch(function(err){
+      res.json(err);
+    });
+});
+
+
 // Route for grabbing a specific Article by id, populate it with it's note
-// app.get("/articles/:id", function(req, res) {
-//   // TODO
-//   // ====
-//   // Finish the route so it finds one article using the req.params.id,
-//   // and run the populate method with "note",
-//   // then responds with the article with the note included
-//   db.Article
-//     .findOne({"_id":req.params.id})
-//     .populate("note")
-//     .then(function(dbArticle){
-//       res.json(dbArticle)
-//     })
-//     .catch(function(err){
-//       res.json(err);
-//     });
 
-// });
-
-// // Route for saving/updating an Article's associated Note
-// app.post("/articles/:id", function(req, res) {
-//   // TODO
-//   // ====
-//   // save the new note that gets posted to the Notes collection
-//   // then find an article from the req.params.id
-//   // and update it's "note" property with the _id of the new note
-//     db.Comment
-//     .create(eq.body)
-//     .then(function(dbNote){
-//       res.json(dbArticle)
-//       return db.Article.findOneAndUpdate(
-//         {"_id":req.params.id},
-//         {note:dbNote._id},
-//         {new:true} //---------------- returns the new updated version of the table
-//         );
-//     })
-//     .catch(function(err){
-//       res.json(err);
-//     });
-// });
 
 // Start the server
 app.listen(PORT, function() {

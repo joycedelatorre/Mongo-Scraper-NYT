@@ -1,5 +1,6 @@
 function saveEvent(){
-  $(".table-striped").on("click",".save", function(){
+  $(".table-striped").on("click",".save", function(){ // --!!!--> .save should be fixed because it gets clicked twice 
+  console.log("jjj");
     var currentRow=$(this).closest("tr");
     var col1 = currentRow.find("td:eq(0)").text();
     var col2 = currentRow.find("td:eq(1)").text();
@@ -30,20 +31,6 @@ function deleteArticle(){
   });
 }
 
-function createComment(){
-  $(".saveComments").on("click", function(){
-    var newComment = $("#myTextArea").val();
-    console.log(newComment);
-    $.ajax({
-      method:"POST",
-      url:"/api/new_comment",
-      data: { body:newComment }
-    }).done(function(data){
-      
-    }); // end of $.ajax
-  });
-}
-
 $(document).ready(function(){
   //console.log("ready!");
   $("#scrape").on("click",function(){
@@ -63,7 +50,7 @@ $(document).ready(function(){
                 "<td><button class='btn btn-success save'> Save Article </button></td></tr></tbody>"
         );
       }
-      saveEvent();
+      saveEvent();  // --!!!--> .save should be fixed because it gets clicked twice 
     });
   });
 
@@ -95,7 +82,7 @@ $(document).ready(function(){
       }//end of for loop
       deleteArticle();
       // displayArticleComments();
-      createComment();
+      // createComment();
     });//end of $.ajax
 
   });
@@ -104,75 +91,47 @@ $(document).ready(function(){
   $('#comment').on('show.bs.modal', function(e) {
     //get data-id attribute of the clicked element
     var articleId = $(e.relatedTarget).data('id');
-    console.log(articleId);
+    // console.log(articleId);
+    $("#comment").attr("data-article-id",articleId);
+    // console.log(articleId);
     //populate the textbox
-    var mid = $("#comment").attr("data-article-id",articleId);
-    // var modalId = $(e.currentTarget).attr("#data-article-id",articleId);
-    console.log(mid);
-  });
-
-  $("#saveComments").on("click", function(event){
-    event.preventDefault
+    //------------- AJAX CALL ALL THE NOTES WITH ARTICLE ID
     $.ajax({
       method:"GET",
-      url:"/api/new_comment"
+      url:"/articles/"+articleId,
     }).done(function(data){
-      $(".comment_list").html(data);
-      console.log(data);
+      // $(".comment_list").append()
     })
+
+    $(".saveComments").on("click", function(event){
+      event.preventDefault
+      var modalId = $("#comment").attr("data-article-id");
+      console.log(modalId);
+      console.log($("#myTextArea").val());
+    // var thisId = $(this).attr("data-article-id");
+      $.ajax({
+        method:"POST",
+        url:"/api/new_comment/"+ modalId,
+        data:{
+          body:$("#myTextArea").val()
+        }
+      }).done(function(data){
+        // $(".comment_list").html(data);
+        alert("comment saved");
+      });
+
+      // $.ajax({
+      //   method:"GET",
+      //   url:"/articles/"+ modalId,
+      // }).done(function(data){
+      //   // $(".comment_list").html(data);
+      //   alert("comment saved");
+      // });
+    });
   });
 }); // END OF DOCUMENT READY
 
-//create a comment first the display it
 
-
-
-
-
-
-// Grab the articles as a json
-// $.getJSON("/articles", function(data) {
-//   // For each one
-//   for (var i = 0; i < data.length; i++) {
-//     // Display the apropos information on the page
-//     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-//   }
-// });
-
-
-// // Whenever someone clicks a p tag
-// $(document).on("click", "p", function() {
-//   // Empty the notes from the note section
-//   $("#notes").empty();
-//   // Save the id from the p tag
-//   var thisId = $(this).attr("data-id");
-
-//   // Now make an ajax call for the Article
-//   $.ajax({
-//     method: "GET",
-//     url: "/articles/" + thisId
-//   })
-//     // With that done, add the note information to the page
-//     .done(function(data) {
-//       console.log(data);
-//       // The title of the article
-//       $("#notes").append("<h2>" + data.title + "</h2>");
-//       // An input to enter a new title
-//       $("#notes").append("<input id='titleinput' name='title' >");
-//       // A textarea to add a new note body
-//       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-//       // A button to submit a new note, with the id of the article saved to it
-//       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
-//       // If there's a note in the article
-//       if (data.note) {
-//         // Place the title of the note in the title input
-//         $("#titleinput").val(data.note.title);
-//         // Place the body of the note in the body textarea
-//         $("#bodyinput").val(data.note.body);
-//       }
-//     });
-// });
 
 // // When you click the savenote button
 // $(document).on("click", "#savenote", function() {
