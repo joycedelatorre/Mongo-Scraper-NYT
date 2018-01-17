@@ -26,13 +26,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/NYT", {
-  useMongoClient: true
+var databaseUri = 'mongodb://localhost/NYT';
+if(process.env.MONGODB_URI){
+	databaseUri=process.env.MONGODB_URI;
+}
+mongoose.connect(databaseUri,{
+	useMongoClient:true
 });
 
+// var databaseUri ='mongodb://localhost/NYT';
+// mongoose.Promise = Promise;
+// // //=========================================================== #3 mongoDBmLab
+// if(process.env.MONGODB_URI){
+// 	mongoose.connect(process.env.MONGODB_URI)
+// } else{
+// // 	mongoose.connect(databaseUri);
+// 	mongoose.connect("mongodb://localhost/NYT", {
+//   		useMongoClient: true
+// 	});
+// }
+
+
+//===========================================================
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB 	WITHOUT HEROKU
+// mongoose.Promise = Promise;
+// mongoose.connect("mongodb://localhost/NYT", {
+//   useMongoClient: true
+// });
 // Routes
 
 // A GET route for scraping the echojs website
